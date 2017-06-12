@@ -4,8 +4,7 @@ dir <- getwd()
 #Required files:
 packages <- c("distr", "ggplot2", "gridExtra", "MASS", 
               "moments", "polynom", "pracma", "actuar")
-scripts <- c("graph.coverage.R", "table.coverage.R", "simulation.R", 
-             "sourceDir.R")
+scripts <- c("graph.coverage.R", "table.coverage.R", "simulation.R")
 directories <- c("hypothesis_tests")
 
 #Install any missing packages.
@@ -25,6 +24,11 @@ for(script in scripts) {
 }
 
 #Load scripts from other directories.
+source_dir <- function(dir) {
+  for (name in list.files(dir)) {
+    source(file.path(dir, name))
+  }
+}
 for(directory in directories) {
-  sourceDir(paste(dir, "/", directory, sep = ""))
+  source_dir(paste(dir, "/", directory, sep = ""))
 }
